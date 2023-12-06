@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--
+    Charmaine Washington, 4 December 2023, Lab11B, GDS089
+    -->
+    <meta charset='utf-8' />
+    <meta name="viewport" content="width=device-width" /> 
+    <title>Charmaine's Web Page</title>
+    <style>
+    /* styles go here */
+        table { border-collapse: collapse;}
+        td { border: 1px solid gray; padding: 4px 12px; }
+    </style>
+</head>
+
+<body>
+    <h1>Composers</h1>
+    <!-- page content will go here -->
+
+    <table id="masterlist">
+
+    </table>
+
+    <script>
+    // scripts will go here
+
+    requestComposerInfo();
+    var xhr;
+
+    function requestComposerInfo() {
+        xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = processComposerInfo;
+        xhr.open ("GET", "https://www.rotaryspin.com/mc/api/composers.php?query=all&year=&until=&sort=&show=&list=&format=");
+        xhr.send();
+    }
+
+    function processComposerInfo() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            //console.log (xhr.responseText);
+            var composerInfo = JSON.parse(xhr.responseText);
+            console.log (composerInfo);
+
+            //put it into the table 
+            var tableContents = "";
+            for (var i=0; i<composerInfo.length; i++) {
+                tableContents += "<tr>";
+                tableContents += "<td>" + composerInfo(i).composers + "</td>"
+                tableContents += "<td>" + composerInfo(i).born + "</td>"
+                tableContents += "<td>" + composerInfo(i).died + "</td>"
+                tableContents += "<td>" + composerInfo(i).country + "</td>"
+                tableContents += "<td>" + composerInfo(i).period + "</td>"
+                tableContents += "</tr>";
+            }
+            document.getElementById('masterlist').innerHTML = tableContents;
+        }
+    }
+        
+    </script>
+</body>
+</html>
