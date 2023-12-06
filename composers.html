@@ -9,7 +9,7 @@
     <title>Charmaine's Web Page</title>
     <style>
     /* styles go here */
-        table { border-collapse: collapse;}
+        table { border-collapse: collapse; margin: 1em auto;}
         td { border: 1px solid gray; padding: 4px 12px; }
     </style>
 </head>
@@ -31,7 +31,7 @@
     function requestComposerInfo() {
         xhr = new XMLHttpRequest();
         xhr.onreadystatechange = processComposerInfo;
-        xhr.open ("GET", "https://www.rotaryspin.com/mc/api/composers.php?query=all&year=&until=&sort=&show=&list=&format=");
+        xhr.open ("GET", "https://www.rotaryspin.com/mc/api/composers.php?query=all&year=&until=&sort=&show=&list=&format=&sort=year");
         xhr.send();
     }
 
@@ -45,11 +45,11 @@
             var tableContents = "";
             for (var i=0; i<composerInfo.length; i++) {
                 tableContents += "<tr>";
-                tableContents += "<td>" + composerInfo(i).composers + "</td>"
-                tableContents += "<td>" + composerInfo(i).born + "</td>"
-                tableContents += "<td>" + composerInfo(i).died + "</td>"
-                tableContents += "<td>" + composerInfo(i).country + "</td>"
-                tableContents += "<td>" + composerInfo(i).period + "</td>"
+                tableContents += "<td>" + composerInfo[i].name + "</td>";
+                tableContents += "<td>" + composerInfo[i].born + "</td>";
+                tableContents += "<td>" + composerInfo[i].died + "</td>";
+                tableContents += "<td>" + composerInfo[i].country + "</td>";
+                tableContents += "<td>" + composerInfo[i].period + "</td>";
                 tableContents += "</tr>";
             }
             document.getElementById('masterlist').innerHTML = tableContents;
